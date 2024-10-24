@@ -5,3 +5,4 @@ class Models(Enum):
     Perspective = 'Perspective'
     RoBERTa_ToxiGen = 'RoBERTa_ToxiGen'
     Hatebert_toxigen = 'Hatebert_toxigen'
+    Llama = 'Llama'

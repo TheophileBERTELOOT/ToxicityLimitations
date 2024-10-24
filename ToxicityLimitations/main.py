@@ -7,6 +7,7 @@ from ToxicityLimitations.Models.chatGPT import chatGPTVanilla
 from ToxicityLimitations.Models.RobertaToxicGen import RoBERTa_ToxiGen
 from ToxicityLimitations.Models.HateBertToxicGen import Hatebert_toxigen
 from ToxicityLimitations.Models.Perspective import Perspective
+from ToxicityLimitations.Models.Llama import Llama
 
 from ToxicityLimitations.Datasets.Subtle import SubtleDataset
 
@@ -62,6 +63,9 @@ def cli(model,message,config_path,datasets):
         m.getToxicityScore(message)
     elif model == Models.Perspective.value:
         perspective_api_key = config['PerspectiveAPI']['api_key']
+        m = Perspective(perspective_api_key)
+        m.getToxicityScore()
+    elif model == Models.Perspective.value:
         m = Perspective(perspective_api_key)
         m.getToxicityScore()
         
