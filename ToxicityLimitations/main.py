@@ -12,6 +12,7 @@ from ToxicityLimitations.Models.Perspective import Perspective
 from ToxicityLimitations.Models.Llama import Llama
 from ToxicityLimitations.Models.LlamaGuard import LlamaGuard
 from ToxicityLimitations.Models.Gemini import Gemini
+from ToxicityLimitations.Models.claude import Claude
 
 from ToxicityLimitations.Datasets.Subtle import SubtleDataset
 
@@ -77,6 +78,7 @@ def cli(model,message,config_path,datasets,experiments,output_path):
     project_key = config['openAI']['project']
     perspective_api_key = config['PerspectiveAPI']['api_key']
     gemini_api_key = config['Gemini']['api_key']
+    claude_api_key = config['Claude']['api_key']
     
     if experiments == Experiments.Subtle.value:
         context = Contexts.Toxicity.value
@@ -85,9 +87,10 @@ def cli(model,message,config_path,datasets,experiments,output_path):
             Models.RoBERTa_ToxiGen.value : RoBERTa_ToxiGen(),
             Models.Hatebert_toxigen.value : Hatebert_toxigen(),
             Models.Perspective.value : Perspective(perspective_api_key),
-            Models.Gemini.value : Gemini(gemini_api_key),
-            # Models.Llama.value : Llama(),
-            # Models.LlamaGuard.value: LlamaGuard()
+            Models.Gemini.value : Gemini(gemini_api_key,context),
+            Models.Claude.value : Claude(claude_api_key,context),
+            # Models.Llama.value : Llama(context),
+            # Models.LlamaGuard.value: LlamaGuard(context)
         }
         xp = SubtleExperiments(models,output_path)
         xp.run()

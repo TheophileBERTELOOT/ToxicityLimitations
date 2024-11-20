@@ -17,9 +17,11 @@ class LlamaGuard:
         return self.tokenizer.decode(output[0][prompt_len:], skip_special_tokens=True)
     
     def getToxicityScore(self,message):
-        result = self.moderate(message)
-        print(result)
+        result = self.moderate(self.context+'\n'+message)
         return result
+    
+    def standardizeOutput(self):
+        pass
 
 
 

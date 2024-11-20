@@ -17,9 +17,16 @@ class chatGPTVanilla:
             {"role": "user", "content": message}
         ]
         )
-        return completion.choices[0].message
+        return self.getFormatedResponse(completion.choices[0].message.content)
         
-
+    def getFormatedResponse(self,response):
+        formatedResponse = {'Toxicity Binary':0,'Toxicity':0,'Identity attack':0,'Insult':0,'Profanity':0,'Threat':0,'Severe Toxicity':0,'Justification':''}
+        response = response.split('\n')
+        for field in response:
+            field = field.split(':')
+            if field[0] in formatedResponse.keys():
+                formatedResponse[field[0]] = field[1]
+        return formatedResponse
         
         
 
