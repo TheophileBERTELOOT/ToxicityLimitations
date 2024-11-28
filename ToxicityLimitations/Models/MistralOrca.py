@@ -1,13 +1,12 @@
 from ollama import chat
 from ollama import ChatResponse
 
-class Llama:
+class MistralOpenOrca:
     def __init__(self,context) -> None:
         self.context = context
-
         
     def getToxicityScore(self,message):
-        response: ChatResponse = chat(model='llama3.2', messages=[
+        response: ChatResponse = chat(model='mistral-openorca', messages=[
             {
                 'role': 'system',
                 'content': self.context,

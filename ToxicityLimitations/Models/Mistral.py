@@ -1,12 +1,12 @@
 from ollama import chat
 from ollama import ChatResponse
 
-class Llama:
-    def __init__(self,context) -> None:
+class Mistral:
+    def __init__(self,api_key,context) -> None:  
         self.context = context
 
-        
-    def getToxicityScore(self,message):
+
+    def getToxicityScore(self,message:str):
         response: ChatResponse = chat(model='llama3.2', messages=[
             {
                 'role': 'system',
@@ -17,7 +17,7 @@ class Llama:
             }
             ])
         return self.getFormatedResponse(response['message']['content']) 
-    
+        
     def getFormatedResponse(self,response):
         formatedResponse = {'ToxicityBinary':0,'Toxicity':0,'IdentityAttack':0,'Insult':0,'Profanity':0,'Threat':0,'SevereToxicity':0,'Justification':''}
         response = response.split('\n')
@@ -29,6 +29,7 @@ class Llama:
                 formatedResponse[key] = field[1]
         return formatedResponse
 
-
+        
+        
 
 

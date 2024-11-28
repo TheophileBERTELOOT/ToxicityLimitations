@@ -1,13 +1,12 @@
 from ollama import chat
 from ollama import ChatResponse
 
-class Llama:
+class Hermes3:
     def __init__(self,context) -> None:
         self.context = context
-
         
     def getToxicityScore(self,message):
-        response: ChatResponse = chat(model='llama3.2', messages=[
+        response: ChatResponse = chat(model='hermes3', messages=[
             {
                 'role': 'system',
                 'content': self.context,

@@ -1,27 +1,37 @@
-from transformers import AutoTokenizer, AutoModelForCausalLM
-import torch 
+from ollama import chat
+from ollama import ChatResponse
 
 class LlamaGuard:
-    def __init__(self) -> None:
-        model_id = "meta-llama/Llama-Guard-3-8B"
-        self.device = "cuda"
-        dtype = torch.bfloat16
-        self.tokenizer = AutoTokenizer.from_pretrained(model_id)
-        self.model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=dtype, device_map=self.device)
+    def __init__(self,context) -> None:
+
+        self.context = context
+
 
     
-    def moderate(self,chat):
-        input_ids = self.tokenizer.apply_chat_template(chat, return_tensors="pt").to(self.device)
-        output = self.model.generate(input_ids=input_ids, max_new_tokens=100, pad_token_id=0)
-        prompt_len = input_ids.shape[-1]
-        return self.tokenizer.decode(output[0][prompt_len:], skip_special_tokens=True)
-    
     def getToxicityScore(self,message):
-        result = self.moderate(self.context+'\n'+message)
-        return result
+        response: ChatResponse = chat(model='llama-guard3', messages=[
+            {
+                'role': 'system',
+                'content': self.context,
+            },{
+                'role': 'user',
+                'content' : message
+            }
+            ])
+        return self.getFormatedResponse(response['message']['content']) 
     
-    def standardizeOutput(self):
-        pass
+    def getFormatedResponse(self,response):
+        print(response)
+        formatedResponse = {'ToxicityBinary':0,'Toxicity':0,'IdentityAttack':0,'Insult':0,'Profanity':0,'Threat':0,'SevereToxicity':0,'Justification':''}
+        response = response.split('\n')
+        for field in response:
+            field = field.split(':')
+            key = field[0]
+            key = key.replace(' ','')
+            if key in formatedResponse.keys():
+                formatedResponse[key] = field[1]
+        return formatedResponse
+
 
 
 
