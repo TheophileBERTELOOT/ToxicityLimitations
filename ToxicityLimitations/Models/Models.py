@@ -14,7 +14,6 @@ class Models(Enum):
     Gemma2 = 'gemma2' #ollama
     Qwen25 = 'qwen'#ollama
     phi35 = 'phi35'#ollama
-    mxbai_embed_large = 'mxbai-embed-large'#ollama
     dolphin_llama3 = 'dolphin_llama3'#ollama
     mistral_openorca = 'mistral-openorca'#ollama
     aya = 'aya'#ollama

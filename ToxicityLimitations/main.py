@@ -22,7 +22,6 @@ from ToxicityLimitations.Models.Granite3Guardian import Granite3Guardian
 from ToxicityLimitations.Models.Hermes3 import Hermes3
 from ToxicityLimitations.Models.Llama3Chat import Llama3ChatQA
 from ToxicityLimitations.Models.MistralOrca import MistralOpenOrca
-from ToxicityLimitations.Models.Mxbai import Mxbai
 from ToxicityLimitations.Models.NeuralChat import NeuralChat
 from ToxicityLimitations.Models.OpenHermes import Openhermes
 from ToxicityLimitations.Models.Phi35 import Phi35
@@ -100,13 +99,12 @@ def cli(model,message,config_path,datasets,experiments,output_path):
         context = Contexts.Toxicity.value
         models = {
             # Models.aya.value : Aya(context),
-            # Models.dolphin_llama3.value : DolphinLlama(context),
+            Models.dolphin_llama3.value : DolphinLlama(context),
             # Models.Gemma2.value  : Gemma2(context),
             # Models.granite3_guardian.value : Granite3Guardian(context),
             # Models.hermes3.value : Hermes3(context),
             # Models.llama3_chatqa.value : Llama3ChatQA(context),
             # Models.mistral_openorca.value: MistralOpenOrca(context),
-            # Models.mxbai_embed_large.value : Mxbai(context),
             # Models.neural_chat.value : NeuralChat(context),
             # Models.openhermes.value : Openhermes(context),
             # Models.phi35.value : Phi35(context),

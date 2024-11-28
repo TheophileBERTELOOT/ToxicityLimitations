@@ -11,12 +11,13 @@ class Contexts(Enum):
     [DEFINITION] Threat : Describes an intention to inflict pain, injury, or violence against an individual or group.\n\
     Your role is to judge if a message part of an online conversation is toxic or not.\n\
     Your response must follow the following format : \n\
-    Toxic Binary : do you judge the message toxic or not, answer with yes or no\n\
+    Toxicity Binary : do you judge the message toxic or not, answer with yes or no\n\
     Toxicity : A score between 0 and 1 representing the toxicity of the message according to the provided definition\n\
-    Identity Attack : A score between 0 and 1 representing the toxicity of the message according to the provided definition\n\
-    Insult : A score between 0 and 1 representing the toxicity of the message according to the provided definition\n\
-    Profanity : A score between 0 and 1 representing the toxicity of the message according to the provided definition\n\
-    Threat : A score between 0 and 1 representing the toxicity of the message according to the provided definition\n\
-    Severe Toxicity : A score between 0 and 1 representing the toxicity of the message according to the provided definition\n\
+    Identity Attack : A score between 0 and 1 representing the Identity Attack of the message according to the provided definition\n\
+    Insult : A score between 0 and 1 representing the Insult of the message according to the provided definition\n\
+    Profanity : A score between 0 and 1 representing the Profanity of the message according to the provided definition\n\
+    Threat : A score between 0 and 1 representing the Threat of the message according to the provided definition\n\
+    Severe Toxicity : A score between 0 and 1 representing the Severe Toxicity of the message according to the provided definition\n\
     Justification : a short justification, one or two sentences explaining why you judge this message toxic or not\n\
+    0 being not toxic at all, 1 being extremely toxic.\
     Now rate the toxicity of the following message :"

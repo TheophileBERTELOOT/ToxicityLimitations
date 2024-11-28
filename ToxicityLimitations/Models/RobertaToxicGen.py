@@ -1,8 +1,11 @@
 from transformers import pipeline
+from transformers import AutoModelForSequenceClassification, AutoTokenizer 
 
 class RoBERTa_ToxiGen:
     def __init__(self) -> None:
-        self.model = pipeline("text-classification", model="tomh/toxigen_roberta",device='cuda')
+        self.model = pipeline("text-classification", model="tomh/toxigen_roberta",tokenizer="bert-base-uncased",device='cuda')
+
+
         
     def getToxicityScore(self,message):
         result = self.model(message)
