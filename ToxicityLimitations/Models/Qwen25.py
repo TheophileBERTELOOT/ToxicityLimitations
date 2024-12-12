@@ -6,7 +6,7 @@ class Qwen25:
         self.context = context
         
     def getToxicityScore(self,message):
-        response: ChatResponse = chat(model='qwen2.5', messages=[
+        response: ChatResponse = chat(model='qwen2.5:7b', messages=[
             {
                 'role': 'system',
                 'content': self.context,

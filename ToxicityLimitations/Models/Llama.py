@@ -16,6 +16,7 @@ class Llama:
                 'content' : message
             }
             ])
+        print(response['message']['content'])
         return self.getFormatedResponse(response['message']['content']) 
     
     def getFormatedResponse(self,response):
