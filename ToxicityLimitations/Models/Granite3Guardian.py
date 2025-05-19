@@ -19,13 +19,8 @@ class Granite3Guardian:
     
     def getFormatedResponse(self,response):
         formatedResponse = {'ToxicityBinary':0,'Toxicity':0,'IdentityAttack':0,'Insult':0,'Profanity':0,'Threat':0,'SevereToxicity':0,'Justification':''}
-        response = response.split('\n')
-        for field in response:
-            field = field.split(':')
-            key = field[0]
-            key = key.replace(' ','')
-            if key in formatedResponse.keys():
-                formatedResponse[key] = field[1]
+        if response != 'No':
+            formatedResponse['ToxicityBinary'] = 1
         return formatedResponse
 
 

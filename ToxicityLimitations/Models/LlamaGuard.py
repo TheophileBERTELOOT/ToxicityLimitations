@@ -21,15 +21,9 @@ class LlamaGuard:
         return self.getFormatedResponse(response['message']['content']) 
     
     def getFormatedResponse(self,response):
-        print(response)
         formatedResponse = {'ToxicityBinary':0,'Toxicity':0,'IdentityAttack':0,'Insult':0,'Profanity':0,'Threat':0,'SevereToxicity':0,'Justification':''}
-        response = response.split('\n')
-        for field in response:
-            field = field.split(':')
-            key = field[0]
-            key = key.replace(' ','')
-            if key in formatedResponse.keys():
-                formatedResponse[key] = field[1]
+        if response != 'safe':
+            formatedResponse['ToxicityBinary'] = 1
         return formatedResponse
 
 

@@ -13,7 +13,7 @@ class SubtleExperiments:
         
     def run(self):
         for modelName in self.models.keys():
-            print(modelName)
+            
             i = 0
             if os.path.exists(self.outputPath+modelName+'.csv'):
                 df = pd.read_csv(self.outputPath+modelName+'.csv',index_col=0)
@@ -27,7 +27,6 @@ class SubtleExperiments:
             for row in self.dataset.data['train']:
                 if i > firstRowToBeTreated:
                     model = self.models[modelName]
-                    print(row['cleaned_text'])
                     response = model.getToxicityScore(row['cleaned_text'])
                     response['message_id'] = row['message_id']
                     response['text'] = row['cleaned_text']
