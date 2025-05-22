@@ -27,13 +27,13 @@ class SubtleExperiments:
             for row in self.dataset.data['train']:
                 if i > firstRowToBeTreated:
                     model = self.models[modelName]
-                    print(row['cleaned_text'])
-                    response = model.getToxicityScore(row['cleaned_text'])
-                    response['message_id'] = row['message_id']
-                    response['text'] = row['cleaned_text']
-                    df.loc[len(df)] = response
+                    if row['cleaned_text'].replace(" ", "") != '':
+                        response = model.getToxicityScore(row['cleaned_text'])
+                        response['message_id'] = row['message_id']
+                        response['text'] = row['cleaned_text']
+                        df.loc[len(df)] = response
                     percentage = math.trunc((i*100)/len(self.dataset.data['train']))
-                    if percentage > lastPercentage:
+                    if i%10 == 0:
                         print(str(percentage) +'%')
                         print('___________________________________')
                         lastPercentage = percentage
