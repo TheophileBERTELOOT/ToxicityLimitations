@@ -4,7 +4,7 @@ import math
 import time 
 import os
 
-class SubtleExperiments:
+class WikipediaExperiments:
     def __init__(self,models,outputPath) -> None:
         self.dataset = SubtleDataset()
         self.models = models

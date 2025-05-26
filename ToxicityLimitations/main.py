@@ -6,9 +6,9 @@ from ToxicityLimitations.Experiments.Experiments import Experiments
 from ToxicityLimitations.Models.Contexts import Contexts
 
 # from ToxicityLimitations.Models.chatGPT import chatGPTVanilla
-# from ToxicityLimitations.Models.RobertaToxicGen import RoBERTa_ToxiGen
-# from ToxicityLimitations.Models.HateBertToxicGen import Hatebert_toxigen
-from ToxicityLimitations.Models.Perspective import Perspective
+from ToxicityLimitations.Models.RobertaToxicGen import RoBERTa_ToxiGen
+from ToxicityLimitations.Models.HateBertToxicGen import Hatebert_toxigen
+# from ToxicityLimitations.Models.Perspective import Perspective
 # from ToxicityLimitations.Models.Llama import Llama
 # from ToxicityLimitations.Models.LlamaGuard import LlamaGuard
 # from ToxicityLimitations.Models.Gemini import Gemini
@@ -31,6 +31,7 @@ from ToxicityLimitations.Models.Perspective import Perspective
 from ToxicityLimitations.Datasets.Subtle import SubtleDataset
 
 from ToxicityLimitations.Experiments.Subtle import SubtleExperiments
+from ToxicityLimitations.Experiments.Toxigen import ToxigenExperiments
 
 @click.command(help="Code for the article 'Limitations of modern toxicity detection models' ")
 @click.option(
@@ -109,9 +110,9 @@ def cli(model,message,config_path,datasets,experiments,output_path):
             # Models.openhermes.value : Openhermes(context),
             # Models.phi35.value : Phi35(context),
             # Models.ChatGPT.value : chatGPTVanilla(openai_api_key,org_key,project_key,context),
-            # Models.RoBERTa_ToxiGen.value : RoBERTa_ToxiGen(),
-            # Models.Hatebert_toxigen.value : Hatebert_toxigen(),
-            Models.Perspective.value : Perspective(perspective_api_key),
+            Models.RoBERTa_ToxiGen.value : RoBERTa_ToxiGen(),
+            Models.Hatebert_toxigen.value : Hatebert_toxigen(),
+            # Models.Perspective.value : Perspective(perspective_api_key),
             # Models.Gemini.value : Gemini(gemini_api_key,context),
             # Models.Claude.value : Claude(claude_api_key,context),
             # Models.Llama.value : Llama(context),
@@ -123,6 +124,9 @@ def cli(model,message,config_path,datasets,experiments,output_path):
     
     if experiments == Experiments.Subtle.value:
         xp = SubtleExperiments(models,output_path)
+        xp.run()
+    if experiments == Experiments.Toxigen.value:
+        xp = ToxigenExperiments(models,output_path)
         xp.run()
         
         

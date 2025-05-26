@@ -1,12 +1,12 @@
-from ToxicityLimitations.Datasets.Subtle import SubtleDataset
+from ToxicityLimitations.Datasets.Toxigen import ToxigenDataset
 import pandas as pd
 import math
 import time 
 import os
 
-class SubtleExperiments:
+class ToxigenExperiments:
     def __init__(self,models,outputPath) -> None:
-        self.dataset = SubtleDataset()
+        self.dataset = ToxigenDataset()
         self.models = models
         self.outputPath = outputPath
         
@@ -19,7 +19,7 @@ class SubtleExperiments:
                 df = pd.read_csv(self.outputPath+modelName+'.csv',index_col=0)
                 firstRowToBeTreated = len(df)
             else:
-                df = pd.DataFrame(columns=['ToxicityBinary','Toxicity','IdentityAttack','Insult','Profanity','Threat','SevereToxicity','Justification','message_id','text'])
+                df = pd.DataFrame(columns=['ToxicityBinary','Toxicity','IdentityAttack','Insult','Profanity','Threat','SevereToxicity','Justification','text'])
                 firstRowToBeTreated = 0
             t1 = time.time()
             percentage = 0
@@ -27,9 +27,8 @@ class SubtleExperiments:
             for row in self.dataset.data['train']:
                 if i > firstRowToBeTreated:
                     model = self.models[modelName]
-                    response = model.getToxicityScore(row['cleaned_text'])
-                    response['message_id'] = row['message_id']
-                    response['text'] = row['cleaned_text']
+                    response = model.getToxicityScore(row['text'])
+                    response['text'] = row['text']
                     df.loc[len(df)] = response
                     percentage = math.trunc((i*100)/len(self.dataset.data['train']))
                     if percentage > lastPercentage:

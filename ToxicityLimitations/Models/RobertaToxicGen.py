@@ -12,6 +12,7 @@ class RoBERTa_ToxiGen:
         return self.getFormatedResponse(result[0])
     
     def getFormatedResponse(self,response):
+        print(response)
         formatedResponse = {'ToxicityBinary':0,'Toxicity':0,'IdentityAttack':0,'Insult':0,'Profanity':0,'Threat':0,'SevereToxicity':0,'Justification':''}
         if response['label'] == 'LABEL_0':
             formatedResponse['ToxicityBinary'] = 0
