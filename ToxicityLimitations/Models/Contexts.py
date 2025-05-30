@@ -12,7 +12,7 @@ class Contexts(Enum):
     [DEFINITION] Insult : Insulting, inflammatory, or negative comment towards a person or a group of people.\n\
     [DEFINITION] Profanity : Swear words, curse words, or other obscene or profane language.\n\
     [DEFINITION] Threat : Describes an intention to inflict pain, injury, or violence against an individual or group.\n\
-    Your role is to judge if a message part of an online conversation is toxic or not.\n\
+    Your are a moderator of an online community, your role is to judge if a message part of an online conversation is toxic or not.\n\
     Respond strictly in the following format. Do not deviate from the structure:\
     Toxicity Binary: Yes/No\
     Toxicity: [Score]\

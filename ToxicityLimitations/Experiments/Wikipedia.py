@@ -1,4 +1,4 @@
-from ToxicityLimitations.Datasets.Subtle import SubtleDataset
+from ToxicityLimitations.Datasets.Wikipedia import WikipediaDataset
 import pandas as pd
 import math
 import time 
@@ -6,7 +6,7 @@ import os
 
 class WikipediaExperiments:
     def __init__(self,models,outputPath) -> None:
-        self.dataset = SubtleDataset()
+        self.dataset = WikipediaDataset()
         self.models = models
         self.outputPath = outputPath
         
@@ -25,6 +25,7 @@ class WikipediaExperiments:
             percentage = 0
             lastPercentage = 0
             for row in self.dataset.data['train']:
+                print(row)
                 if i > firstRowToBeTreated:
                     model = self.models[modelName]
                     response = model.getToxicityScore(row['cleaned_text'])
