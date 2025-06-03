@@ -24,22 +24,22 @@ class WikipediaExperiments:
             t1 = time.time()
             percentage = 0
             lastPercentage = 0
-            for row in self.dataset.data['train']:
-                print(row)
+            for row_index in self.dataset.data.index:
+                row= self.dataset.data.loc[row_index]
                 if i > firstRowToBeTreated:
                     model = self.models[modelName]
-                    response = model.getToxicityScore(row['cleaned_text'])
+                    response = model.getToxicityScore(row['comment_text'])
                     response['message_id'] = row['message_id']
-                    response['text'] = row['cleaned_text']
+                    response['text'] = row['comment_text']
                     df.loc[len(df)] = response
-                    percentage = math.trunc((i*100)/len(self.dataset.data['train']))
+                    percentage = math.trunc((i*100)/len(self.dataset.data))
                     if percentage > lastPercentage:
                         print(str(percentage) +'%')
                         print('___________________________________')
                         lastPercentage = percentage
                         df.to_csv(self.outputPath+modelName+'.csv')
                 i+=1
-            if firstRowToBeTreated < len(self.dataset.data['train'])-2:           
+            if firstRowToBeTreated < len(self.dataset.data)-2:           
                 df.to_csv(self.outputPath+modelName+'.csv')
             timePassed = str((time.time()-t1)/60)
             print(timePassed+' minutes passed')

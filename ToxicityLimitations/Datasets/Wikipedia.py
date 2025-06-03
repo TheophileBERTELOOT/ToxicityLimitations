@@ -1,7 +1,7 @@
-from datasets import load_dataset
+import pandas as pd
 
 class WikipediaDataset:
     def __init__(self) -> None:
-        self.data = load_dataset("jigsaw_toxicity_pred",trust_remote_code=True)
+        self.data = pd.read_csv('../data/Wikipedia/train.csv',index_col=0)
 
 
