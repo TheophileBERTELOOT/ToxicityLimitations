@@ -32,7 +32,10 @@ from ToxicityLimitations.Datasets.Subtle import SubtleDataset
 
 from ToxicityLimitations.Experiments.Subtle import SubtleExperiments
 from ToxicityLimitations.Experiments.Toxigen import ToxigenExperiments
+from ToxicityLimitations.Experiments.Attack import AttackExperiments
+from ToxicityLimitations.Experiments.Conversation import ConversationExperiments
 from ToxicityLimitations.Experiments.Wikipedia import WikipediaExperiments
+from ToxicityLimitations.Experiments.Biais import BiaisExperiments
 
 @click.command(help="Code for the article 'Limitations of modern toxicity detection models' ")
 @click.option(
@@ -139,6 +142,15 @@ def cli(model,message,config_path,datasets,experiments,output_path,compute_resul
             xp.run()
         if experiments == Experiments.Wikipedia.value:
             xp = WikipediaExperiments(models,output_path)
+            xp.run()
+        if experiments == Experiments.Conversation.value:
+            xp = ConversationExperiments(models,output_path)
+            xp.run()
+        if experiments == Experiments.Attack.value:
+            xp = AttackExperiments(models,output_path)
+            xp.run()
+        if experiments == Experiments.Biais.value:
+            xp = BiaisExperiments(models,output_path)
             xp.run()
     else:
         if experiments == Experiments.Subtle.value:

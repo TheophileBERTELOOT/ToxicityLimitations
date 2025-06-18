@@ -5,7 +5,7 @@ import time
 import os
 from sklearn.metrics import precision_score, recall_score, f1_score
 
-class SubtleExperiments:
+class ConversationExperiments:
     def __init__(self,models,outputPath) -> None:
         self.dataset = SubtleDataset()
         self.models = models
