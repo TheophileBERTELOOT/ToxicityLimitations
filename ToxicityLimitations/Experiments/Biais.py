@@ -1,4 +1,4 @@
-from ToxicityLimitations.Datasets.Subtle import SubtleDataset
+from ToxicityLimitations.Datasets.Biais import BiaisDataset
 import pandas as pd
 import math
 import time 
@@ -7,7 +7,7 @@ from sklearn.metrics import precision_score, recall_score, f1_score
 
 class BiaisExperiments:
     def __init__(self,models,outputPath) -> None:
-        self.dataset = SubtleDataset()
+        self.dataset = BiaisDataset()
         self.models = models
         self.outputPath = outputPath
         
@@ -25,22 +25,22 @@ class BiaisExperiments:
             t1 = time.time()
             percentage = 0
             lastPercentage = 0
-            for row in self.dataset.data['train']:
+            for row in self.dataset.data:
                 if i > firstRowToBeTreated:
                     model = self.models[modelName]
-                    if row['cleaned_text'].replace(" ", "") != '':
-                        response = model.getToxicityScore(row['cleaned_text'])
-                        response['message_id'] = row['message_id']
-                        response['text'] = row['cleaned_text']
+                    if row['comment_text'].replace(" ", "") != '':
+                        response = model.getToxicityScore(row['comment_text'])
+                        response['message_id'] = row['id']
+                        response['text'] = row['comment_text']
                         df.loc[len(df)] = response
-                    percentage = math.trunc((i*100)/len(self.dataset.data['train']))
-                    if i%10 == 0:
+                    percentage = math.trunc((i*100)/len(self.dataset.data))
+                    if i%100 == 0:
                         print(str(percentage) +'%')
                         print('___________________________________')
                         lastPercentage = percentage
                         df.to_csv(self.outputPath+modelName+'.csv')
                 i+=1
-            if firstRowToBeTreated < len(self.dataset.data['train'])-2:           
+            if firstRowToBeTreated < len(self.dataset.data)-2:           
                 df.to_csv(self.outputPath+modelName+'.csv')
             timePassed = str((time.time()-t1)/60)
             print(timePassed+' minutes passed')
