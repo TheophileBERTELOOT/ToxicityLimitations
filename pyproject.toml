@@ -13,15 +13,12 @@ main = "ToxicityLimitations.main:cli"
 dlModels = "ToxicityLimitations.dlModels:cli"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = ">=3.13"
 click = "^8.1.7"
-perspectiveapi = "^1.1.0"
 transformers = "^4.46.0"
 torch = "^2.5.0"
-perspective = "^1.0.3"
 datasets = "^3.0.2"
 accelerate = "^1.1.1"
-ollama = "^0.4.1"
 scikit-learn = "^1.6.1"
 
 
