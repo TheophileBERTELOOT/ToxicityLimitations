@@ -106,7 +106,7 @@ from ToxicityLimitations.Experiments.Biais import BiaisExperiments
 def cli(model,message,config_path,datasets,experiments,output_path,compute_results):
     config = configparser.ConfigParser()
     config.read(config_path)
-    login(config['HuggingFace']['token'])
+#    login(config['HuggingFace']['token'])
     openai_api_key = config['openAI']['api_key']
     org_key = config['openAI']['org']
     project_key = config['openAI']['project']
@@ -114,30 +114,31 @@ def cli(model,message,config_path,datasets,experiments,output_path,compute_resul
     gemini_api_key = config['Gemini']['api_key']
     claude_api_key = config['Claude']['api_key']
     mistral_api_key = config['Mistral']['api_key']
+    models_path = "/lustre06/project/6010878/thber64/ToxicityLimitationsProject/ToxicityLimitations/media/theophileberteloot/ad5f5ae6-6fd8-46ef-8659-a07d195c6d70/PhD/ToxicityLimitations/Models/"
 
     context = Contexts.Toxicity.value
     models = {
-            Models.aya.value : Aya(context),
-            # Models.dolphin_llama3.value : DolphinLlama(context),
-            # Models.Gemma2.value  : Gemma2(context),
-            # Models.granite3_guardian.value : Granite3Guardian(context),
-            # Models.Qwen25.value : Qwen25(context),
-            # Models.hermes3.value : Hermes3(context),
-            # Models.llama3_chatqa.value : Llama3ChatQA(context),
-            # Models.mistral_openorca.value: MistralOpenOrca(context),
-            # Models.neural_chat.value : NeuralChat(context),
-            # Models.openhermes.value : Openhermes(context),
-            # Models.phi35.value : Phi35(context),
+            Models.aya.value : Aya(context,isOffline=True,model_path=models_path),
+            # Models.dolphin_llama3.value : DolphinLlama(context,isOffline=True,model_path=models_path),
+            # Models.Gemma2.value  : Gemma2(context,isOffline=True,model_path=models_path),
+            # Models.granite3_guardian.value : Granite3Guardian(context,isOffline=True,model_path=models_path),
+            # Models.Qwen25.value : Qwen25(context,isOffline=True,model_path=models_path),
+            # Models.hermes3.value : Hermes3(context,isOffline=True,model_path=models_path),
+            # Models.llama3_chatqa.value : Llama3ChatQA(context,isOffline=True,model_path=models_path),
+            # Models.mistral_openorca.value: MistralOpenOrca(context,isOffline=True,model_path=models_path),
+            # Models.neural_chat.value : NeuralChat(context,isOffline=True,model_path=models_path),
+            # Models.openhermes.value : Openhermes(context,isOffline=True,model_path=models_path),
+            # Models.phi35.value : Phi35(context,isOffline=True,model_path=models_path),
             # Models.ChatGPT.value : chatGPTVanilla(openai_api_key,org_key,project_key,context),
-            # Models.RoBERTa_ToxiGen.value : RoBERTa_ToxiGen(),
-            # Models.Hatebert_toxigen.value : Hatebert_toxigen(),
+            # Models.RoBERTa_ToxiGen.value : RoBERTa_ToxiGen(isOffline=True,model_path=models_path),
+            # Models.Hatebert_toxigen.value : Hatebert_toxigen(isOffline=True,model_path=models_path),
             # Models.Perspective.value : Perspective(perspective_api_key),
             # Models.Gemini.value : Gemini(gemini_api_key,context),
             # Models.Claude.value : Claude(claude_api_key,context),
-            # Models.Llama.value : Llama(context),
-            # Models.LlamaGuard.value: LlamaGuard(context),
-            # Models.Falcon.value : Falcon(context),
-            # Models.Mistral.value : Mistral(context)
+            # Models.Llama.value : Llama(context,isOffline=True,model_path=models_path),
+            # Models.LlamaGuard.value: LlamaGuard(context,isOffline=True,model_path=models_path),
+            # Models.Falcon.value : Falcon(context,isOffline=True,model_path=models_path),
+            # Models.Mistral.value : Mistral(context,isOffline=True,model_path=models_path)
             
         }
     if not compute_results:
@@ -190,7 +191,7 @@ def cli(model,message,config_path,datasets,experiments,output_path,compute_resul
         m = LlamaGuard(context)
         m.getToxicityScore(message)
     elif model == Models.aya.value:
-        m = Aya(context)
+        m = Aya(context,isOffline=True)
         m.getToxicityScore(message)
         
 

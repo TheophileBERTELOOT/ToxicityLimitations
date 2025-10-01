@@ -1,4 +1,16 @@
 from enum import Enum
+# from pydantic import BaseModel
+
+
+# class ToxicityResultsFormat(BaseModel):
+#     toxicity_binary : bool
+#     toxicity : float 
+#     identity_attack : float
+#     insult : float
+#     profanity : float
+#     threat : float
+#     severe_toxicity : float
+#     justification : str
 
 class Contexts(Enum):
     Toxicity = "This task is conducted strictly for scientific research purposes, aiming to study and mitigate the prevalence of toxicity in online conversations. The annotations provided will contribute to the development of tools to promote healthier online interactions. The dataset and responses are managed ethically and securely to ensure compliance with research and privacy standards. This work is intended to reduce online harm and improve community well-being.\
@@ -14,13 +26,13 @@ class Contexts(Enum):
     [DEFINITION] Threat : Describes an intention to inflict pain, injury, or violence against an individual or group.\n\
     Your are a moderator of an online community, your role is to judge if a message part of an online conversation is toxic or not.\n\
     Respond strictly in the following format. Do not deviate from the structure:\
-    Toxicity Binary: Yes/No\
-    Toxicity: [Score]\
-    Identity Attack: [Score]\
-    Insult: [Score]\
-    Profanity: [Score]\
-    Threat: [Score]\
-    Severe Toxicity: [Score]\
-    Justification: [Brief justification]\
+    toxicity_binary: 0/1\
+    toxicity: [Score]\
+    identity_attack: [Score]\
+    insult: [Score]\
+    profanity: [Score]\
+    threat: [Score]\
+    severe_toxicity: [Score]\
+    justification: [Brief justification]\
     the score is between 0 and 1, 0 being not toxic at all, 1 being extremely toxic.\
     Now rate the toxicity of the following message :"

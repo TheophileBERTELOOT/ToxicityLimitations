@@ -20,7 +20,7 @@ class BiaisExperiments:
                 df = pd.read_csv(self.outputPath+modelName+'.csv',index_col=0)
                 firstRowToBeTreated = len(df)
             else:
-                df = pd.DataFrame(columns=['ToxicityBinary','Toxicity','IdentityAttack','Insult','Profanity','Threat','SevereToxicity','Justification','message_id','text'])
+                df = pd.DataFrame(columns=['toxicity_binary','toxicity','identity_attack','insult','profanity','threat','severe_toxicity','justification','message_id','text'])
                 firstRowToBeTreated = 0
             t1 = time.time()
             percentage = 0
@@ -32,8 +32,10 @@ class BiaisExperiments:
                         response = model.getToxicityScore(row['comment_text'])
                         response['message_id'] = row['id']
                         response['text'] = row['comment_text']
+#                        print(response)
+ #                       print('--------------------------------')
                         df.loc[len(df)] = response
-                    percentage = math.trunc((i*100)/len(self.dataset.data))
+                        percentage = math.trunc((i*100)/len(self.dataset.data))
                     if i%100 == 0:
                         print(str(percentage) +'%')
                         print('___________________________________')

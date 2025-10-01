@@ -3,27 +3,27 @@ from transformers import AutoModelForSequenceClassification, AutoTokenizer
 import os
 
 class RoBERTa_ToxiGen:
-    def __init__(self,isOffline=False) -> None:
+    def __init__(self,isOffline=False,model_path='') -> None:
+        self.model_path=model_path
+        self.model_name = "tomh/toxigen_roberta"
         if not isOffline:
-            self.model = pipeline("text-classification", model="tomh/toxigen_roberta",tokenizer="bert-base-uncased",device='cuda')
+            self.model = pipeline("text-classification", model=self.model_name,tokenizer="bert-base-uncased",device='cuda')
         else:
-            if os.path.exists('../Models/toxigen_roberta'):
+            if os.path.exists(model_path+self.model_name):
                 self.model = pipeline(
                 "text-classification",
-                model="../Models/toxigen_roberta",
-                tokenizer="../Models/bert-base-uncased",
-                device=0
+                model=model_path+self.model_name,
+                tokenizer=model_path+"bert-base-uncased",
+                device='auto'
                 )
             else:
                 print('model is not here dl it first')
 
-
-        
     def downloadModel(self):
-        model = AutoModelForSequenceClassification.from_pretrained("tomh/toxigen_roberta")
+        model = AutoModelForSequenceClassification.from_pretrained(self.model_name)
         tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
-        model.save_pretrained("../Models/toxigen_roberta")
-        tokenizer.save_pretrained("../Models/bert-base-uncased")
+        model.save_pretrained(self.model_path+self.model_name)
+        tokenizer.save_pretrained(self.model_path+"bert-base-uncased")
 
 
     def getToxicityScore(self,message):
