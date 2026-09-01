@@ -15,17 +15,17 @@ class Perspective:
                 try:
                     return self.getFormatedResponse(self.p.score(message,['TOXICITY','SEVERE_TOXICITY','IDENTITY_ATTACK','INSULT','PROFANITY','THREAT']))
                 except:
-                    return {'ToxicityBinary':-1,'Toxicity':-1,'IdentityAttack':-1,'Insult':-1,'Profanity':-1,'Threat':-1,'SevereToxicity':-1,'Justification':''}
+                    return {'toxicity_binary':0,'toxicity':0,'identity_attack':0,'insult':0,'profanity':0,'threat':0,'severe_toxicity':0,'justification':''}
         
     def getFormatedResponse(self,response):
-        formatedResponse = {'ToxicityBinary':0,'Toxicity':0,'IdentityAttack':0,'Insult':0,'Profanity':0,'Threat':0,'SevereToxicity':0,'Justification':''}
-        formatedResponse['ToxicityBinary'] = float(response['TOXICITY']) > 0.5
-        formatedResponse['IdentityAttack'] = response['IDENTITY_ATTACK']
-        formatedResponse['Insult'] = response['INSULT']
-        formatedResponse['Profanity'] = response['PROFANITY']
-        formatedResponse['Threat'] = response['THREAT']
-        formatedResponse['SevereToxicity'] = response['SEVERE_TOXICITY']
-        formatedResponse['Toxicity'] = response['TOXICITY']
+        formatedResponse = {'toxicity_binary':0,'toxicity':0,'identity_attack':0,'insult':0,'profanity':0,'threat':0,'severe_toxicity':0,'justification':''}
+        formatedResponse['toxicity_binary'] = float(response['TOXICITY']) > 0.5
+        formatedResponse['identity_attack'] = response['IDENTITY_ATTACK']
+        formatedResponse['insult'] = response['INSULT']
+        formatedResponse['profanity'] = response['PROFANITY']
+        formatedResponse['threat'] = response['THREAT']
+        formatedResponse['severe_toxicity'] = response['SEVERE_TOXICITY']
+        formatedResponse['toxicity'] = response['TOXICITY']
         return formatedResponse
     
     

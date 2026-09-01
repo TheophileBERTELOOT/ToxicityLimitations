@@ -6,7 +6,7 @@ from ToxicityLimitations.Experiments.Experiments import Experiments
 from ToxicityLimitations.Models.Contexts import Contexts
 
 # from ToxicityLimitations.Models.chatGPT import chatGPTVanilla
-from ToxicityLimitations.Models.RobertaToxicGen import RoBERTa_ToxiGen
+# from ToxicityLimitations.Models.RobertaToxicGen import RoBERTa_ToxiGen
 from ToxicityLimitations.Models.HateBertToxicGen import Hatebert_toxigen
 # from ToxicityLimitations.Models.Perspective import Perspective
 # from ToxicityLimitations.Models.Llama import Llama
@@ -57,7 +57,7 @@ def cli():
             # Models.openhermes.value : Openhermes(context),
             # Models.phi35.value : Phi35(context),
             # Models.ChatGPT.value : chatGPTVanilla(openai_api_key,org_key,project_key,context),
-            Models.RoBERTa_ToxiGen.value : RoBERTa_ToxiGen(isOffline=True,model_path=models_path),
+            # Models.RoBERTa_ToxiGen.value : RoBERTa_ToxiGen(isOffline=True,model_path=models_path),
             Models.Hatebert_toxigen.value : Hatebert_toxigen(isOffline=True,model_path=models_path),
             # Models.Perspective.value : Perspective(perspective_api_key),
             # Models.Gemini.value : Gemini(gemini_api_key,context),

@@ -1,7 +1,8 @@
-import pandas as pd
+from datasets import load_dataset
 
 class WikipediaDataset:
     def __init__(self) -> None:
-        self.data = pd.read_csv('../data/Wikipedia/train.csv',index_col=0)
+        self.data = load_dataset("csv", data_files="Data/wikipedia.csv",split='train')
+
 
 

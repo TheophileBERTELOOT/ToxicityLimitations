@@ -21,7 +21,7 @@ class Claude:
         return self.getFormatedResponse(response.content[0].text)
         
     def getFormatedResponse(self,response):
-        formatedResponse = {'ToxicityBinary':0,'Toxicity':0,'IdentityAttack':0,'Insult':0,'Profanity':0,'Threat':0,'SevereToxicity':0,'Justification':''}
+        formatedResponse = {'toxicity_binary':0,'toxicity':0,'identity_attack':0,'insult':0,'profanity':0,'threat':0,'severe_toxicity':0,'justification':''}
         response = response.split('\n')
         for field in response:
             field = field.split(':')

@@ -5,43 +5,43 @@ sys.path.append("../")
 import click
 import configparser
 from huggingface_hub import login
-from ToxicityLimitations.Models.Models import Models
-from ToxicityLimitations.Datasets.Datasets import Datasets
-from ToxicityLimitations.Experiments.Experiments import Experiments
-from ToxicityLimitations.Models.Contexts import Contexts
+from Models.Models import Models
+from Datasets.Datasets import Datasets
+from Experiments.Experiments import Experiments
+from Models.Contexts import Contexts
 
 
-# from ToxicityLimitations.Models.chatGPT import chatGPTVanilla
-# from ToxicityLimitations.Models.RobertaToxicGen import RoBERTa_ToxiGen
-# from ToxicityLimitations.Models.HateBertToxicGen import Hatebert_toxigen
-# from ToxicityLimitations.Models.Perspective import Perspective
-# from ToxicityLimitations.Models.Llama import Llama
-# from ToxicityLimitations.Models.LlamaGuard import LlamaGuard
-# from ToxicityLimitations.Models.Gemini import Gemini
-# from ToxicityLimitations.Models.claude import Claude
-# from ToxicityLimitations.Models.Falcon import Falcon
-# from ToxicityLimitations.Models.Mistral import Mistral
-from ToxicityLimitations.Models.Aya import Aya
-# from ToxicityLimitations.Models.DolphinLlama import DolphinLlama
-# from ToxicityLimitations.Models.Gemma2 import Gemma2
-# from ToxicityLimitations.Models.Granite3Guardian import Granite3Guardian
-# from ToxicityLimitations.Models.Hermes3 import Hermes3
-# from ToxicityLimitations.Models.Llama3Chat import Llama3ChatQA
-# from ToxicityLimitations.Models.MistralOrca import MistralOpenOrca
-# from ToxicityLimitations.Models.NeuralChat import NeuralChat
-# from ToxicityLimitations.Models.OpenHermes import Openhermes
-# from ToxicityLimitations.Models.Phi35 import Phi35
-# from ToxicityLimitations.Models.Qwen25 import Qwen25
+# from Models.chatGPT import chatGPTVanilla
+# from Models.RobertaToxicGen import RoBERTa_ToxiGen
+# from Models.HateBertToxicGen import Hatebert_toxigen
+# # from Models.Perspective import Perspective
+# from Models.Llama import Llama
+# from Models.LlamaGuard import LlamaGuard
+# # from Models.Gemini import Gemini
+# # from Models.claude import Claude
+# from Models.Falcon import Falcon
+# from Models.Mistral import Mistral
+# from Models.Aya import Aya
+# from Models.DolphinLlama import DolphinLlama
+# from Models.Gemma2 import Gemma2
+# from Models.Granite3Guardian import Granite3Guardian
+# from Models.Hermes3 import Hermes3
+# from Models.Llama3Chat import Llama3ChatQA
+# from Models.MistralOrca import MistralOpenOrca
+# from Models.NeuralChat import NeuralChat
+# from Models.OpenHermes import Openhermes
+# # from Models.Phi35 import Phi35
+# from Models.Qwen25 import Qwen25
 
 
-from ToxicityLimitations.Datasets.Subtle import SubtleDataset
+# from Datasets.Subtle import SubtleDataset
 
-from ToxicityLimitations.Experiments.Subtle import SubtleExperiments
-from ToxicityLimitations.Experiments.Toxigen import ToxigenExperiments
-from ToxicityLimitations.Experiments.Attack import AttackExperiments
-from ToxicityLimitations.Experiments.Conversation import ConversationExperiments
-from ToxicityLimitations.Experiments.Wikipedia import WikipediaExperiments
-from ToxicityLimitations.Experiments.Biais import BiaisExperiments
+# from Experiments.Subtle import SubtleExperiments
+from Experiments.Toxigen import ToxigenExperiments
+from Experiments.Attack import AttackExperiments
+# from Experiments.Conversation import ConversationExperiments
+from Experiments.Wikipedia import WikipediaExperiments
+from Experiments.Biais import BiaisExperiments
 
 @click.command(help="Code for the article 'Limitations of modern toxicity detection models' ")
 @click.option(
@@ -118,7 +118,7 @@ def cli(model,message,config_path,datasets,experiments,output_path,compute_resul
 
     context = Contexts.Toxicity.value
     models = {
-            Models.aya.value : Aya(context,isOffline=True,model_path=models_path),
+            # Models.aya.value : Aya(context,isOffline=True,model_path=models_path),
             # Models.dolphin_llama3.value : DolphinLlama(context,isOffline=True,model_path=models_path),
             # Models.Gemma2.value  : Gemma2(context,isOffline=True,model_path=models_path),
             # Models.granite3_guardian.value : Granite3Guardian(context,isOffline=True,model_path=models_path),
@@ -129,10 +129,10 @@ def cli(model,message,config_path,datasets,experiments,output_path,compute_resul
             # Models.neural_chat.value : NeuralChat(context,isOffline=True,model_path=models_path),
             # Models.openhermes.value : Openhermes(context,isOffline=True,model_path=models_path),
             # Models.phi35.value : Phi35(context,isOffline=True,model_path=models_path),
-            # Models.ChatGPT.value : chatGPTVanilla(openai_api_key,org_key,project_key,context),
+            Models.ChatGPT.value : 'ChatGPT',#chatGPTVanilla(openai_api_key,org_key,project_key,context),
             # Models.RoBERTa_ToxiGen.value : RoBERTa_ToxiGen(isOffline=True,model_path=models_path),
             # Models.Hatebert_toxigen.value : Hatebert_toxigen(isOffline=True,model_path=models_path),
-            # Models.Perspective.value : Perspective(perspective_api_key),
+            #Models.Perspective.value : Perspective(perspective_api_key),
             # Models.Gemini.value : Gemini(gemini_api_key,context),
             # Models.Claude.value : Claude(claude_api_key,context),
             # Models.Llama.value : Llama(context,isOffline=True,model_path=models_path),
@@ -141,16 +141,19 @@ def cli(model,message,config_path,datasets,experiments,output_path,compute_resul
             # Models.Mistral.value : Mistral(context,isOffline=True,model_path=models_path)
             
         }
+    
+
+
     if not compute_results:
         if experiments == Experiments.Subtle.value:
             xp = SubtleExperiments(models,output_path)
             xp.run()
         if experiments == Experiments.Toxigen.value:
             xp = ToxigenExperiments(models,output_path)
-            xp.run()
+            xp.run(open_api_key=openai_api_key,org=org_key,project=project_key)
         if experiments == Experiments.Wikipedia.value:
             xp = WikipediaExperiments(models,output_path)
-            xp.run()
+            xp.run(open_api_key=openai_api_key,org=org_key,project=project_key)
         if experiments == Experiments.Conversation.value:
             xp = ConversationExperiments(models,output_path)
             xp.run()
@@ -162,8 +165,20 @@ def cli(model,message,config_path,datasets,experiments,output_path,compute_resul
             xp.run()
     else:
         if experiments == Experiments.Subtle.value:
-             xp = SubtleExperiments(models,output_path)
-             xp.compute_results()
+            xp = SubtleExperiments(models,output_path)
+            xp.compute_results()
+        if experiments == Experiments.Toxigen.value:
+            xp = ToxigenExperiments(models,output_path)
+            xp.compute_results() 
+        if experiments == Experiments.Wikipedia.value:
+            xp = WikipediaExperiments(models,output_path)
+            xp.compute_results() 
+        if experiments == Experiments.Biais.value:
+            xp = BiaisExperiments(models,output_path)
+            xp.compute_results() 
+        if experiments == Experiments.Attack.value:
+            xp = AttackExperiments(models,output_path)
+            xp.compute_results() 
         
         
     if datasets == Datasets.Subtle.value:

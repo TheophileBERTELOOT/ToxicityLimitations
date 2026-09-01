@@ -1,30 +1,35 @@
-from transformers import pipeline
-from transformers import AutoModelForSequenceClassification, AutoTokenizer
+# from transformers import pipeline
+# from transformers import AutoModelForSequenceClassification, AutoTokenizer
 import os 
-
+from huggingface_hub import snapshot_download
 
 class Hatebert_toxigen:
     def __init__(self,isOffline=False,model_path='') -> None:
         self.model_path=model_path
-        self.model_name='tomh/toxigen_hatebert'
-        if not isOffline:
-            self.model = pipeline("text-classification", model=self.model_name,tokenizer="bert-base-uncased",device='cuda')
-        else:
-            if os.path.exists(model_path+self.model_name):
-                self.model = pipeline(
-                "text-classification",
-                model=model_path+self.model_name,
-                tokenizer=model_path+"bert-base-uncased",
-                device='auto'
-                )
-            else:
-                print('model is not here dl it first')
+        # self.model_name='tomh/toxigen_hatebert'
+        # if not isOffline:
+        #     self.model = pipeline("text-classification", model=self.model_name,tokenizer="bert-base-uncased",device='cuda')
+        # else:
+        #     if os.path.exists(model_path+self.model_name):
+        #         self.model = pipeline(
+        #         "text-classification",
+        #         model=model_path+self.model_name,
+        #         tokenizer=model_path+"bert-base-uncased",
+        #         device='auto'
+        #         )
+        #     else:
+        #         print('model is not here dl it first')
 
     def downloadModel(self):
-        model = AutoModelForSequenceClassification.from_pretrained(self.model_name)
-        tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
-        model.save_pretrained(self.model_path+self.model_name)
-        tokenizer.save_pretrained(self.model_path+"bert-base-uncased")
+                snapshot_download(
+    repo_id="bert-base-uncased",
+    local_dir=self.model_path+"bert-base-uncased-reddit",
+    local_dir_use_symlinks=False
+)
+        # model = AutoModelForSequenceClassification.from_pretrained(self.model_name)
+        # tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
+        # model.save_pretrained(self.model_path+self.model_name)
+        # tokenizer.save_pretrained(self.model_path+"bert-base-uncased")
         
     def getToxicityScore(self,message):
         result = self.model(message)
